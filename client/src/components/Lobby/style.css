@@ -1,0 +1,8 @@
+toggle__dot {
+    transition: all 0.3s ease-in-out;
+}
+
+input:checked ~ .toggle__dot {
+    transform: translateX(100%);
+    background-color:#68D391
+}
