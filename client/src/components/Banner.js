@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import backgroundImage from "../back2.jpg";
 import styled from "styled-components";
 import SearchList from "./SearchList";
+import DateComponent from "./Date/index";
 import { FaUserFriends, FaClock } from "react-icons/fa";
 import movieDbRequest from "../utils/movieDbRequest";
+import moment from "moment";
 import _ from "lodash";
 
 const BannerContents = styled.div`
@@ -24,14 +26,15 @@ const getSearchResults = async (query) => {
   const results = await movieDbRequest("/search/multi", {
     query,
   });
-  return _.take(results, 6);
+  return _.take(results, 9);
 };
 
 const Banner = () => {
-  const [title, setTitle] = useState("La La Land");
+  const [title, setTitle] = useState("");
   const [searching, setSearching] = useState(false);
   const [searchList, setSearchList] = useState([]);
   const [currentMovie, setCurrentMovie] = useState({});
+  const [dateTime, setDateTime] = useState(moment());
   useEffect(() => {
     const fetchData = async () => {
       const results = await getSearchResults(title);
@@ -91,15 +94,15 @@ const Banner = () => {
               >
                 {currentMovie
                   ? currentMovie.overview
-                  : "Select a movie to watch wait set the time and moode. Invite friends and stream together"}
+                  : "Select a movie to watch wait set the time and mood. Invite friends and stream together"}
               </p>
               <p className=" text-white text-sm  sm:mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
                 <FaUserFriends className="inline mr-2" /> 5 Members
               </p>
 
-              <p className=" text-white text-sm    sm:max-w-xl sm:mx-auto  lg:mx-0">
-                <FaClock className="inline mr-2" />{" "}
-                <span className="text-gray-300"> Sun Nov 29 2020,</span> 9:30 PM
+              <p className=" text-black text-sm sm:max-w-xl sm:mx-auto  lg:mx-0">
+                <FaClock className="inline mr-2 text-white" />
+                <DateComponent dateTime={dateTime} setDateTime={setDateTime} />
               </p>
             </div>
           )}
