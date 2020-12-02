@@ -1,89 +1,113 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import backgroundImage from "../back2.jpg";
 import styled from "styled-components";
+import SearchList from "./SearchList";
 import { FaUserFriends, FaClock } from "react-icons/fa";
+import movieDbRequest from "../utils/movieDbRequest";
+import _ from "lodash";
 
 const BannerContents = styled.div`
   padding-top: 100px;
-  padding-left: 60px;
   height: 100%;
-  z-index: 10;
+  z-index: 5;
   width: 100%;
+
   background: linear-gradient(
     to right,
-    rgba(27, 27, 27, 1) 0%,
+    rgba(26, 26, 26, 1) 0%,
     rgba(255, 255, 255, 0) 100%
   );
 `;
 
-const BannerTitle = styled.h1`
-  padding-top: 0.3rem;
-`;
-
-const BannerFadeBottom = styled.div`
-  background-image: linear-gradient(
-    180deg,
-    transparent,
-    rgba(37, 37, 37, 0.61),
-    #111
-  );
-`;
-
-const Clip = styled.div`
-  position: absolute;
-  background: rgb(229, 9, 20);
-  background: linear-gradient(
-    0deg,
-    rgba(229, 9, 20, 1) 0%,
-    rgba(34, 31, 31, 0.035140008151698154) 100%
-  );
-  top: 0;
-  clip-path: polygon(86% 0, 100% 0, 100% 100%, 63% 100%);
-  right: 0;
-  width: 100vw;
-  height: 100%;
-`;
+const getSearchResults = async (query) => {
+  if (!query) return [];
+  const results = await movieDbRequest("/search/multi", {
+    query,
+  });
+  return _.take(results, 6);
+};
 
 const Banner = () => {
+  const [title, setTitle] = useState("La La Land");
+  const [searching, setSearching] = useState(false);
+  const [searchList, setSearchList] = useState([]);
+  const [currentMovie, setCurrentMovie] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      const results = await getSearchResults(title);
+      setSearchList(results);
+      setCurrentMovie(results[0]);
+    };
+    fetchData();
+  }, [searching, title]);
+
+  const handleBlur = () => {
+    setSearching(false);
+    if (currentMovie && currentMovie.title && title)
+      setTitle(currentMovie.title);
+  };
+  const setSearchingTrue = () => {
+    setSearching(true);
+  };
+
+  const HandleTitleChange = (e) => {
+    const value = e.target.value;
+    setTitle(value);
+  };
+  const imageUrl = currentMovie
+    ? baseUrl + currentMovie.backdrop_path || currentMovie.poster_path
+    : backgroundImage;
   return (
-    <div className="relative">
+    <div className="relative bg-nt-red-main">
       <header
         className="object-contain bg-white white"
         style={{
-          height: "60vh",
+          height: "70vh",
           color: "black",
           backgroundSize: "cover",
           backgroundImage: `url(
-        ${backgroundImage}
+        ${imageUrl}
         )`,
           backgroundPosition: "center center",
         }}
       >
-        <BannerContents className="text-white">
-          <BannerTitle className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
-            La La Land
-          </BannerTitle>
-          <div>
-            <p className="text-sm text-gray-400 sm:mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
-              Sebastian (Ryan Gosling) and Mia (Emma Stone) are drawn together
-              by their common desire to do what they love. But as success mounts
-              they are faced with decisions that begin to fray the fragile
-              fabric of their love affair, and the dreams they worked so hard to
-              maintain in each other threaten to rip them apart.
-            </p>
-            <p className=" text-white text-sm  sm:mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
-              <FaUserFriends className="inline mr-2" /> 5 Members
-            </p>
-
-            <p className=" text-white text-sm    sm:max-w-xl sm:mx-auto  lg:mx-0">
-              <FaClock className="inline mr-2" />{" "}
-              <span className="text-gray-400"> Sun Nov 29 2020,</span> 9:30 PM
-            </p>
+        <BannerContents className="text-white md:px-16 sm:px-4">
+          <div onFocus={setSearchingTrue} onBlur={handleBlur}>
+            <input
+              placeholder="Search for a Movie"
+              className="text-4xl bg-transparent tracking-tight font-extrabold text-white sm:text-5xl border-none focus:outline-none md:text-6xl"
+              value={title}
+              onChange={(e) => {
+                HandleTitleChange(e);
+              }}
+            />
+            {searching && <SearchList list={searchList} />}
           </div>
+          {!searching && (
+            <div>
+              <p
+                style={{ minHeight: "150px" }}
+                className="text-sm text-gray-300 sm:mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0"
+              >
+                {currentMovie
+                  ? currentMovie.overview
+                  : "Select a movie to watch wait set the time and moode. Invite friends and stream together"}
+              </p>
+              <p className=" text-white text-sm  sm:mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
+                <FaUserFriends className="inline mr-2" /> 5 Members
+              </p>
+
+              <p className=" text-white text-sm    sm:max-w-xl sm:mx-auto  lg:mx-0">
+                <FaClock className="inline mr-2" />{" "}
+                <span className="text-gray-300"> Sun Nov 29 2020,</span> 9:30 PM
+              </p>
+            </div>
+          )}
         </BannerContents>
       </header>
     </div>
   );
 };
 
+const baseUrl = "https://image.tmdb.org/t/p/original";
 export default Banner;

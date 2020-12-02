@@ -1,4 +1,5 @@
 import React from "react";
+import dotenv from "dotenv";
 import Room from "./pages/Room";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -6,6 +7,7 @@ import Home from "./pages/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
+  dotenv.config();
   return (
     <Router>
       <div>

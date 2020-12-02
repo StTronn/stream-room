@@ -1,10 +1,12 @@
 import React from "react";
+import dotenv from "dotenv";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./main.css";
 import { UserProvider } from "./context/user";
 import { GlobalStyles } from "./global-styles";
 import reportWebVitals from "./reportWebVitals";
+dotenv.config();
 
 ReactDOM.render(
   <React.StrictMode>
