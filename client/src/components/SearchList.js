@@ -21,6 +21,8 @@ const SearchList = ({ list }) => {
   );
 };
 
-const SearchItem = ({ obj: { title } }) => <div>{title}</div>;
+const SearchItem = ({ obj: { title, original_name } }) => (
+  <div>{title || original_name}</div>
+);
 
 export default SearchList;

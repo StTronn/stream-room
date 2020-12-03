@@ -6,6 +6,7 @@ import connectDB from "./models";
 import errorHandler from "./middleware/errorHandler";
 import authenticate from "./middleware/auth";
 import auth from "./routes/auth";
+import room from "./routes/room";
 import passport from "passport";
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 
 app.use("/auth", auth);
+app.use("/room", room);
 
 connectDB();
 

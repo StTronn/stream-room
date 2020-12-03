@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import authRequest from "../utils/authRequest";
 import backgroundImage from "../back2.jpg";
 import styled from "styled-components";
 import SearchList from "./SearchList";
@@ -29,47 +30,67 @@ const getSearchResults = async (query) => {
   return _.take(results, 9);
 };
 
-const Banner = () => {
-  //state
+const updateRoom = async (roomObj) => {
+  const updateObj = await authRequest("/room/update", roomObj);
+};
+
+const Banner = ({ obj }) => {
   const [title, setTitle] = useState("");
   const [searching, setSearching] = useState(false);
   const [searchList, setSearchList] = useState([]);
-  const [currentMovie, setCurrentMovie] = useState({});
+  const [movieObj, setMovieObj] = useState({});
   const [dateTime, setDateTime] = useState(moment());
   const [roomObj, setRoomObj] = useState({});
 
   useEffect(() => {
-    const changes = { currentMovie, dateTime };
-    setRoomObj({ ...roomObj, ...changes });
-  }, [currentMovie, dateTime]);
+    const changes = { movieObj, dateTime };
+    setRoomObj({ ...obj, ...changes });
+    updateRoom({ ...obj, ...changes });
+  }, [movieObj, dateTime]);
 
   // search query
   useEffect(() => {
     const fetchData = async () => {
       const results = await getSearchResults(title);
-      setSearchList(results);
-      setCurrentMovie(results[0]);
+      if (searching && title) {
+        setSearchList(results);
+        setMovieObj(results[0]);
+      }
     };
     fetchData();
   }, [searching, title]);
 
+  useEffect(() => {
+    if (obj) {
+      if (obj.movieObj) setMovieObj(obj.movieObj);
+      if (obj.dateTime) setDateTime(new moment(obj.dateTime));
+      if (obj.movieObj && (obj.movieObj.title || obj.movieObj.original_name))
+        setTitle(obj.movieObj.title || obj.movieObj.original_name);
+    }
+  }, []);
+
   const handleBlur = () => {
     setSearching(false);
-    if (currentMovie && currentMovie.title && title)
-      setTitle(currentMovie.title);
+    if (movieObj && (movieObj.title || movieObj.original_name) && title)
+      setTitle(movieObj.title || movieObj.original_name);
   };
+
   const setSearchingTrue = () => {
     setSearching(true);
   };
 
   const HandleTitleChange = (e) => {
     const value = e.target.value;
+    if (!value || value === "") {
+      setMovieObj({});
+    }
     setTitle(value);
   };
 
-  const imageUrl = currentMovie
-    ? baseUrl + currentMovie.backdrop_path || currentMovie.poster_path
-    : backgroundImage;
+  const imageUrl =
+    movieObj && movieObj.backdrop_path
+      ? baseUrl + movieObj.backdrop_path || movieObj.poster_path
+      : backgroundImage;
 
   return (
     <Header imageUrl={imageUrl}>
@@ -89,7 +110,7 @@ const Banner = () => {
         {!searching && (
           <div>
             <Description>
-              {currentMovie ? currentMovie.overview : prompt}
+              {movieObj ? movieObj.overview || prompt : prompt}
             </Description>
             <InfoCointaiers>
               <FaUserFriends className="inline mr-2" /> 5 Members

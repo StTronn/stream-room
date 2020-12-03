@@ -1,4 +1,6 @@
 import React from "react";
+import authRequest from "../utils/authRequest";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Clip = styled.div`
@@ -17,6 +19,17 @@ const Clip = styled.div`
 `;
 
 const HomeBanner = () => {
+  const history = useHistory();
+  const createRoom = async () => {
+    try {
+      const data = await authRequest("/room/create");
+      console.log(data);
+    } catch (err) {
+      console.log(err.response.status);
+      if (err.response && err.response.status === 403) history.push("/signin");
+      console.log(err);
+    }
+  };
   return (
     <div className="relative w-full">
       <div className="bg-nt-gray">
@@ -33,7 +46,7 @@ const HomeBanner = () => {
             <div className="inline-flex rounded shadow">
               <a
                 href="/#"
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-semibold rounded text-white bg-nt-red-main hover:bg-indigo-700"
+                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-semibold rounded text-white bg-nt-red-main hover:bg-red-700"
               >
                 Join Room
               </a>
@@ -41,6 +54,7 @@ const HomeBanner = () => {
             <div className="ml-3 inline-flex rounded shadow">
               <a
                 href="/#"
+                onClick={createRoom}
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-semibold rounded text-nt-red-main bg-white hover:bg-indigo-50"
               >
                 Create Room

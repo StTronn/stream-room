@@ -1,6 +1,8 @@
 import React from "react";
 
-const User = ({ username, admin }) => {
+const User = ({ user }) => {
+  console.log({ user });
+  const { username, fullname } = user;
   return (
     <div className="flex justify-between items-center text-white h-16 p-4 my-6 bg-nt-gray rounded border border-nt-gray shadow-md">
       <div className="flex items-center">
@@ -10,9 +12,9 @@ const User = ({ username, admin }) => {
           alt="Logo"
         />
         <div className="ml-2">
-          <div className="text-sm font-semibold text-white">{username}</div>
-          <div className="text-sm font-light text-nt-red-main">
-            {admin ? "admin" : ""}{" "}
+          <div className="text-sm font-semibold text-white">{fullname}</div>
+          <div className="text-sm font-light text-nt-red-accent">
+            {username}{" "}
           </div>
         </div>
       </div>

@@ -59,7 +59,6 @@ const authenticate = async (req, res, next) => {
     const token = req.header("Authorization").replace("Bearer ", "");
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id);
-    console.log(user.token, token);
     if (!user || user.token !== token) {
       return next({
         statusCode: 401,
@@ -71,6 +70,7 @@ const authenticate = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
+    console.log(err);
     next({
       statusCode: 403,
       message: "You need to be logged in to to visit this route",

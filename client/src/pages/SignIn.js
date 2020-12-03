@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
 import { User } from "../context/user";
@@ -18,12 +18,13 @@ const validate = (values) => {
 };
 
 const SignUp = () => {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const { user, dispatch } = useContext(User);
   const HandleSignUp = async (values) => {
-    const URL = "http://localhost:8000/";
-    const endpoint = "auth/login";
+    const URL = "http://localhost:8000";
+    const endpoint = "/auth/login";
     const target = URL + endpoint;
     try {
       setLoading(true);
@@ -37,6 +38,7 @@ const SignUp = () => {
       setLoading(false);
     }
     setLoading(false);
+    history.push("/");
   };
 
   const formik = useFormik({
@@ -114,7 +116,7 @@ const SignUp = () => {
               <p>
                 Don't have an account{" "}
                 <Link
-                  to="/signin"
+                  to="/signup"
                   className="underline font-semibold text-white"
                 >
                   Sign Up here.

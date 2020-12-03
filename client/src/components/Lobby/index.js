@@ -1,15 +1,14 @@
 import React from "react";
 import User from "./User";
 
-const Lobby = () => {
+const Lobby = ({ obj }) => {
+  console.log({ obj });
   return (
-    <div className=" min-h-screen flex-1  p-4 mt-16 flex justify-center items-center">
+    <div className=" min-h-screen flex-1  p-4 mt-16 flex justify-center ">
       <div className=" w-full  md:max-w-4xl rounded shadow">
         <div className=" h-12   flex justify-between items-center border-b border-nt-red-main m-4 pb-2">
           <div>
-            <div className="text-xl px-2 font-bold text-white">
-              Tron's Lobby
-            </div>
+            <div className="text-xl px-2 font-bold text-white">Lobby</div>
           </div>
           <div className="px-2">
             <div className="flex items-center justify-center w-full  shadow-md rounded-full">
@@ -42,11 +41,9 @@ const Lobby = () => {
           </div>
         </div>
         <div className="px-6">
-          <User username={"Tron"} admin />
-          <User username={"Akshat"} />
-          <User username={"Gaurav"} />
-          <User username={"Nits"} />
-          <User username={"Bits"} />
+          {obj.users.map((e) => (
+            <User user={e} />
+          ))}
           <div className="flex bg-gray-200 justify-center items-center h-16 p-4 my-6  rounded  shadow-inner">
             <div className="flex items-center border border-gray-400 p-2 border-dashed rounded cursor-pointer">
               <div>
@@ -73,8 +70,10 @@ const Lobby = () => {
           </div>
         </div>
         <div className="p-6 ">
-          <button className="p-4 bg-nt-red-main hover:bg-green-500 w-full rounded shadow text-xl font-medium uppercase text-white">
-            Start Streaming
+          <button className="p-4 bg-nt-red-main hover:bg-red-800 w-full rounded shadow text-xl font-medium uppercase text-white">
+            <a href="https://www.tele.pe/netflix/7e80e64165fcea67?s=s140">
+              Start Streaming
+            </a>
           </button>
         </div>
       </div>

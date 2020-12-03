@@ -15,6 +15,7 @@
     "moment": "^2.29.1",
     "postcss": "^8.1.10",
     "postcss-cli": "^8.3.0",
+    "query-string": "^6.13.7",
     "react": "^17.0.1",
     "react-datepicker2": "^3.3.13",
     "react-datetime": "^3.0.4",
