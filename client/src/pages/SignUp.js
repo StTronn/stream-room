@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { URL } from "../utils/Routes";
 import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
 
@@ -30,15 +31,16 @@ const validate = (values) => {
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
+  const history = useHistory();
 
   const HandleSignUp = async (values) => {
-    const URL = "http://localhost:8000/";
-    const endpoint = "auth/register";
+    const endpoint = "/auth/register";
     const target = URL + endpoint;
     try {
       setLoading(true);
       const res = await axios.post(target, values);
       console.log(res.data);
+      history.push("/signin");
     } catch (err) {
       console.log("error", err.response.data.message);
       setErrorMessage(err.response.data.message);

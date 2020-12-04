@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { Link, useHistory } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
+import { URL } from "../utils/Routes";
 import { User } from "../context/user";
 
 const validate = (values) => {
@@ -17,13 +18,12 @@ const validate = (values) => {
   return errors;
 };
 
-const SignUp = () => {
+const SignIn = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const { user, dispatch } = useContext(User);
   const HandleSignUp = async (values) => {
-    const URL = "http://localhost:8000";
     const endpoint = "/auth/login";
     const target = URL + endpoint;
     try {
@@ -31,14 +31,13 @@ const SignUp = () => {
       const res = await axios.post(target, values);
       const user = res.data.user;
       dispatch({ type: "SET_USER", payload: user });
+      history.push("/");
       console.log(res.data);
     } catch (err) {
       console.log("error", err.response.data.message);
       setErrorMessage(err.response.data.message);
       setLoading(false);
     }
-    setLoading(false);
-    history.push("/");
   };
 
   const formik = useFormik({
@@ -156,4 +155,4 @@ const Input = (props) => (
   />
 );
 
-export default SignUp;
+export default SignIn;

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import authRequest from "../utils/authRequest";
 import Loading from "../pages/Loading";
+import NotFound from "../pages/NotFound";
 import HomeBanner from "../components/HomeBanner";
 import Flick from "../components/Flick";
 
 const Home = () => {
   const [myRooms, setMyRooms] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
@@ -19,11 +21,14 @@ const Home = () => {
       } catch (err) {
         console.log(err);
         if (err.response) console.log(err.response);
+        setNotFound(true);
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
 
+  if (notFound) return <NotFound />;
   if (loading) return <Loading />;
   return (
     <>

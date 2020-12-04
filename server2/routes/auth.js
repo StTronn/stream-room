@@ -12,6 +12,7 @@ router.post("/login", async (req, res, next) => {
 
   let user = await User.findOne({ email: username });
   user = user ? user : await User.findOne({ username });
+  console.log(user);
   const match = user ? await user.checkPassword(password) : false;
 
   if (!user || !match) {
