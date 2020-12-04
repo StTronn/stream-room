@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import InviteModal from "../../components/InviteModal";
+import authRequest from "../../utils/authRequest";
 import User from "./User";
 
 const Lobby = ({ obj }) => {
-  console.log({ obj });
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [editLink, setEditLink] = useState(false);
+  const [link, setLink] = useState("");
+  useEffect(() => {
+    if (obj) setLink(obj.link);
+  }, []);
+
+  const submit = async (e) => {
+    if (e.keyCode === 13 && link && obj) {
+      await authRequest("/room/update", { id: obj.id, link });
+      setEditLink(false);
+    }
+  };
+
   return (
     <div className=" min-h-screen flex-1  p-4 mt-16 flex justify-center ">
       <div className=" w-full  md:max-w-4xl rounded shadow">
@@ -41,9 +56,7 @@ const Lobby = ({ obj }) => {
           </div>
         </div>
         <div className="px-6">
-          {obj.users.map((e) => (
-            <User user={e} />
-          ))}
+          {obj && obj.users && obj.users.map((e) => <User user={e} />)}
           <div className="flex bg-gray-200 justify-center items-center h-16 p-4 my-6  rounded  shadow-inner">
             <div className="flex items-center border border-gray-400 p-2 border-dashed rounded cursor-pointer">
               <div>
@@ -62,7 +75,12 @@ const Lobby = ({ obj }) => {
                   />
                 </svg>
               </div>
-              <div className="ml-1 text-gray-500 font-medium">
+              <div
+                className="ml-1 text-gray-500 font-medium"
+                onClick={(e) => {
+                  setIsOpen(true);
+                }}
+              >
                 {" "}
                 Invite a friend
               </div>
@@ -70,13 +88,40 @@ const Lobby = ({ obj }) => {
           </div>
         </div>
         <div className="p-6 ">
-          <button className="p-4 bg-nt-red-main hover:bg-red-800 w-full rounded shadow text-xl font-medium uppercase text-white">
-            <a href="https://www.tele.pe/netflix/7e80e64165fcea67?s=s140">
-              Start Streaming
-            </a>
-          </button>
+          {!editLink && (
+            <button className="p-4 bg-nt-red-main hover:bg-red-800 w-full rounded shadow text-xl font-medium uppercase text-white">
+              <a href={link}>Start Streaming</a>
+            </button>
+          )}
+
+          {editLink && (
+            <span className="flex items-center border-b border-nt-red-main py-2">
+              <input
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
+                onKeyDown={submit}
+                className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 text-base leading-tight focus:outline-none"
+                type="text"
+                placeholder="Enter room id"
+                aria-label="Full name"
+              />
+            </span>
+          )}
+          <p
+            onClick={() => {
+              setEditLink(true);
+            }}
+            className="font-sm text-nt-red-main text-center underline pt-2"
+          >
+            change link
+          </p>
         </div>
       </div>
+      <InviteModal
+        id={obj.id || ""}
+        modalIsOpen={modalIsOpen}
+        setIsOpen={setIsOpen}
+      />
     </div>
   );
 };

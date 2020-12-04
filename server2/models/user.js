@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   fullname: {
     type: String,
     required: [true, "Please enter your fullname"],
@@ -20,6 +20,9 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: true,
+  },
+  rooms: {
+    type: [Schema.Types.ObjectId],
   },
   token: {
     type: String,

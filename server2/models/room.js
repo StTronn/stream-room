@@ -20,4 +20,14 @@ const RoomSchema = new Schema({
   },
 });
 
+RoomSchema.pre("save", async function (next) {
+  const user = this.users[this.users.length - 1];
+  for (let room of user.rooms) {
+    if (room.id === this.id) next();
+  }
+  user.rooms.push(this._id);
+  await user.save();
+  next();
+});
+
 export default mongoose.model("room", RoomSchema);

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const URL = "http://localhost:8000";
+const LoginUrl = "http://localhost:3000/signin";
 
 const authRequest = async (endpoint, data) => {
   try {
@@ -20,7 +21,10 @@ const authRequest = async (endpoint, data) => {
       return res.data;
     }
   } catch (err) {
-    return err;
+    console.log(err);
+    if (err.response && err.response.status === 403)
+      window.location.replace(LoginUrl);
+    throw err;
   }
 };
 

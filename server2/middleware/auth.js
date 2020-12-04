@@ -58,6 +58,12 @@ const authenticate = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decoded)
+      return next({
+        statusCode: 401,
+        message: "invalid token",
+      });
+
     const user = await User.findById(decoded.id);
     if (!user || user.token !== token) {
       return next({

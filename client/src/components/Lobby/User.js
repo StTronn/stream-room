@@ -1,7 +1,6 @@
 import React from "react";
 
 const User = ({ user }) => {
-  console.log({ user });
   const { username, fullname } = user;
   return (
     <div className="flex justify-between items-center text-white h-16 p-4 my-6 bg-nt-gray rounded border border-nt-gray shadow-md">

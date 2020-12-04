@@ -1,5 +1,6 @@
 import React from "react";
 import authRequest from "../utils/authRequest";
+import Modal from "../components/HomeModal";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
@@ -18,12 +19,16 @@ const Clip = styled.div`
   height: 100%;
 `;
 
-const HomeBanner = () => {
+const HomeBanner = ({ modalIsOpen, setIsOpen }) => {
+  const openModal = () => {
+    setIsOpen(true);
+  };
   const history = useHistory();
   const createRoom = async () => {
     try {
       const data = await authRequest("/room/create");
       console.log(data);
+      history.push(`/room?id=${data.id}`);
     } catch (err) {
       console.log(err.response.status);
       if (err.response && err.response.status === 403) history.push("/signin");
@@ -44,12 +49,13 @@ const HomeBanner = () => {
           </h2>
           <div className="mt-20 lex ">
             <div className="inline-flex rounded shadow">
-              <a
-                href="/#"
+              <div
+                href="/"
+                onClick={() => openModal()}
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-semibold rounded text-white bg-nt-red-main hover:bg-red-700"
               >
                 Join Room
-              </a>
+              </div>
             </div>
             <div className="ml-3 inline-flex rounded shadow">
               <a
@@ -64,6 +70,7 @@ const HomeBanner = () => {
         </div>
       </div>
       <Clip />
+      <Modal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };

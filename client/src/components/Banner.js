@@ -31,7 +31,9 @@ const getSearchResults = async (query) => {
 };
 
 const updateRoom = async (roomObj) => {
-  const updateObj = await authRequest("/room/update", roomObj);
+  const { movieObj, dateTime } = roomObj;
+  //prevent empty updates due to network or other issues
+  if (movieObj && dateTime) await authRequest("/room/update", roomObj);
 };
 
 const Banner = ({ obj }) => {
@@ -39,7 +41,7 @@ const Banner = ({ obj }) => {
   const [searching, setSearching] = useState(false);
   const [searchList, setSearchList] = useState([]);
   const [movieObj, setMovieObj] = useState({});
-  const [dateTime, setDateTime] = useState(moment());
+  const [dateTime, setDateTime] = useState(false);
   const [roomObj, setRoomObj] = useState({});
 
   useEffect(() => {
@@ -113,7 +115,8 @@ const Banner = ({ obj }) => {
               {movieObj ? movieObj.overview || prompt : prompt}
             </Description>
             <InfoCointaiers>
-              <FaUserFriends className="inline mr-2" /> 5 Members
+              <FaUserFriends className="inline mr-2" />
+              {obj ? obj.users.length : 0} Members
               <br />
               <FaClock className="inline mr-2 text-white" />
               <DateComponent dateTime={dateTime} setDateTime={setDateTime} />
