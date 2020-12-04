@@ -118,7 +118,6 @@ const SignUp = () => {
                   ) : null}
                 </FieldName>
                 <Input
-                  placeholder="your@email.com"
                   id="fullname"
                   name="fullname"
                   onChange={formik.handleChange}
