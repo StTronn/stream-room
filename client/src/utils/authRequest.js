@@ -27,7 +27,7 @@ const authRequest = async (endpoint, data) => {
       err.response &&
       (err.response.status === 403 || err.response.status === 401)
     )
-      window.location.replace(LoginUrl);
+      window.location.replace("/signin");
     throw err;
   }
 };
