@@ -15,7 +15,7 @@ const InviteModal = ({ modalIsOpen, setIsOpen, id }) => {
         contentLabel="Example Modal"
       >
         <span className="flex items-center text-nt-red-main underline py-2">
-          link
+          {id}
         </span>
       </Modal>
     </>
