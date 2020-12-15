@@ -1,6 +1,6 @@
 # Stream Rooms
 
-Create movie & Tv show rooms to enjoy watching together with your friends. 
+Create movie & tv show rooms and enjoy watching together with your friends. 
 
 ![pic1](pic2.jpg "room")
 
