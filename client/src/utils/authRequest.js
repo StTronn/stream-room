@@ -1,14 +1,13 @@
 import axios from "axios";
 import { URL } from "../utils/Routes";
 
-const LoginUrl = process.env.REACT_APP_CLIENT_URL + "/signin";
 
 const authRequest = async (endpoint, data) => {
   try {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) window.location.replace(LoginUrl);
+    if (!user) window.location.replace("/signin");
     const { token } = user;
-    if (!token) window.location.replace(LoginUrl);
+    if (!token) window.location.replace("/signin");
     const headers = {};
     if (token) {
       headers.Authorization = `Bearer ${token}`;
