@@ -96,7 +96,7 @@ const Banner = ({ obj }) => {
 
   return (
     <Header imageUrl={imageUrl}>
-      <BannerContents className="text-white md:px-16 sm:px-4">
+      <BannerContents className="text-white px-4 md:px-16 ">
         <div onFocus={setSearchingTrue} onBlur={handleBlur}>
           <TitleInput
             placeholder="Search for a Movie"
@@ -147,7 +147,7 @@ const Header = ({ children, imageUrl }) => (
 
 const TitleInput = (props) => (
   <input
-    className="text-4xl bg-transparent tracking-tight font-extrabold text-white sm:text-5xl border-none focus:outline-none md:text-6xl"
+    className="text-4xl bg-transparent tracking-tight font-extrabold text-white sm:text-5xl border-none focus:outline-none md:text-6xl max-w-full"
     {...props}
   />
 );
@@ -155,14 +155,14 @@ const TitleInput = (props) => (
 const Description = ({ children }) => (
   <p
     style={{ minHeight: "150px" }}
-    className="text-base text-gray-300 sm:mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0"
+    className="text-base text-gray-300 mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0"
   >
     {children}
   </p>
 );
 
 const InfoCointaiers = ({ children }) => (
-  <p className=" text-white text-sm text-semibold sm:mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
+  <p className=" text-white text-sm text-semibold mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
     {children}
   </p>
 );

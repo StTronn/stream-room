@@ -52,9 +52,9 @@ const SignIn = () => {
   });
   return (
     <>
-      <div className="w-full flex flex-wrap">
+      <div className="w-full flex flex-wrap h-screen sm:my-2">
         {/* Login Section */}
-        <div className="w-full md:w-1/2 bg-nt-gray flex flex-col">
+        <div className="w-full md:w-1/2 bg-nt-gray flex flex-col h-full">
           <div className="flex flex-col justify-center md:justify-start my-auto  md:pt-0 px-8 md:px-24 lg:px-32">
             <p className="text-center text-3xl font-bold text-white">Sign In</p>
             <form
@@ -126,7 +126,7 @@ const SignIn = () => {
         </div>
         {/* Image Section */}
         <div
-          className="w-1/2  h-screen"
+          className="hidden md:w-1/2 md:block md:h-screen"
           style={{
             backgroundSize: "cover",
             backgroundImage: "url(https://source.unsplash.com/rICPk6Ob-aM)",

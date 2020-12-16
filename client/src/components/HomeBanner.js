@@ -38,7 +38,7 @@ const HomeBanner = ({ modalIsOpen, setIsOpen }) => {
   return (
     <div className="relative w-full">
       <div className="bg-nt-gray">
-        <div className="max-w-7xl  py-12 md:px-8 sm:px-4  ">
+        <div className="max-w-7xl  py-12 px-8 sm:px-4  ">
           <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             <span className="block text-white">
               The perfect companion for Binge Plans.
@@ -69,7 +69,9 @@ const HomeBanner = ({ modalIsOpen, setIsOpen }) => {
           </div>
         </div>
       </div>
-      <Clip />
+      <div className="hidden md:block">
+        <Clip/>
+      </div>
       <Modal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
     </div>
   );

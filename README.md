@@ -27,7 +27,20 @@ GOOGLE_CLIENT_ID = //your google client id
 GOOGLE_CLIENT_SECRET = //your google client secret
 ```
 
-`server2/models/index.js`
+In server2/models/index.js replace `const mongoConnectionURL = `
 
-replace `const mongoConnectionURL = `
+requires node version > 15
+
+## Technologies 
+MERN Stack
+
+State Managment: Context API
+
+[tailwind](https://tailwindcss.com/) & [styled-components](https://www.styled-components.com/) for UI
+
+Forms: [Formik](http://formik.org/)
+
+DatePicker: [react-datetime](https://www.npmjs.com/package/react-datetime)
+
+
 
