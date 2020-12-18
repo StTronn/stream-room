@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
+import _ from "lodash";
 import bcrypt from "bcrypt";
 
 const UserSchema = new Schema({
@@ -70,4 +71,10 @@ UserSchema.methods.checkPassword = async function (password) {
   if (!password || !this.password) return false;
   return await bcrypt.compare(password, this.password);
 };
+
+UserSchema.methods.removeRoom = async function (id){
+  this.rooms = _.remove(this.rooms,(room)=>room.id==id);
+  await this.save();
+}
+
 export default mongoose.model("user", UserSchema);

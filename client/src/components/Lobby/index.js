@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import InviteModal from "../../components/InviteModal";
 import authRequest from "../../utils/authRequest";
+import DeleteRoom from "./DeleteRoom";
 import User from "./User";
 
 const Lobby = ({ obj }) => {
@@ -115,6 +116,7 @@ const Lobby = ({ obj }) => {
           >
             change link
           </p>
+          <DeleteRoom id={obj.id} />
         </div>
       </div>
       <InviteModal
@@ -125,5 +127,6 @@ const Lobby = ({ obj }) => {
     </div>
   );
 };
+
 
 export default Lobby;
