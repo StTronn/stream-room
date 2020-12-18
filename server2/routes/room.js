@@ -89,6 +89,8 @@ router.get("/userRooms", authenticate, async (req, res, next) => {
         $in: user.rooms,
       },
     });
+    user.rooms = rooms.map(e=>e._id);
+    await user.save();
     return res.status(200).json(rooms);
   } catch (err) {
     return next({ statusCode: 400, message: "coudn't find room" });
