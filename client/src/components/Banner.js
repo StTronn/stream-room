@@ -155,14 +155,14 @@ const TitleInput = (props) => (
 const Description = ({ children }) => (
   <p
     style={{ minHeight: "150px" }}
-    className="text-base text-gray-300 mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0"
+    className="text-base md:max-w-lg text-gray-300 mt-5 sm:mx-auto md:mt-5 lg:mx-0"
   >
     {children}
   </p>
 );
 
 const InfoCointaiers = ({ children }) => (
-  <p className=" text-white text-sm text-semibold mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
+  <p className=" text-white text-sm text-semibold mt-5 sm:mx-auto md:mt-5 lg:mx-0">
     {children}
   </p>
 );

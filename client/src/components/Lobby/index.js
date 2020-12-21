@@ -20,13 +20,13 @@ const Lobby = ({ obj }) => {
   };
 
   return (
-    <div className=" min-h-screen flex-1  p-4 mt-16 flex justify-center ">
+    <div className=" min-h-auto flex-1  p-4 mt-16 flex justify-center ">
       <div className=" w-full  md:max-w-4xl rounded shadow">
         <div className=" h-12   flex justify-between items-center border-b border-nt-red-main m-4 pb-2">
           <div>
-            <div className="text-xl px-2 font-bold text-white">Lobby</div>
+            <div className="text-xl  font-bold text-white">Lobby</div>
           </div>
-          <div className="px-2">
+          <div className="">
             <div className="flex items-center justify-center w-full  shadow-md rounded-full">
               <label
                 htmlfor="toogleA"
@@ -90,7 +90,7 @@ const Lobby = ({ obj }) => {
         </div>
         <div className="p-6 ">
           {!editLink && (
-            <button className="p-4 bg-nt-red-main hover:bg-red-800 w-full rounded shadow text-xl font-medium uppercase text-white">
+            <button className="p-4 bg-nt-red-main hover:bg-red-800 w-full rounded shadow text-lg md:text-xl font-medium uppercase text-white">
               <a href={link}>Start Streaming</a>
             </button>
           )}
@@ -127,6 +127,5 @@ const Lobby = ({ obj }) => {
     </div>
   );
 };
-
 
 export default Lobby;

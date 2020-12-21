@@ -4,6 +4,7 @@ import authRequest from "../utils/authRequest";
 import { useLocation } from "react-router-dom";
 import Banner from "../components/Banner";
 import Lobby from "../components/Lobby/index";
+import Discuss from "../components/Discuss/index";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 
@@ -39,6 +40,7 @@ const Room = () => {
     <>
       <Banner obj={roomObj} />
       <Lobby obj={roomObj} />
+      <Discuss />
     </>
   );
 };

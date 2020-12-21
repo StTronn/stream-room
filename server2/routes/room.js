@@ -44,20 +44,19 @@ router.get("/join", authenticate, async (req, res, next) => {
   });
 });
 
-router.get("/delete",authenticate , async (req,res,next)=>{
+router.get("/delete", authenticate, async (req, res, next) => {
   const url_parts = url.parse(req.url, true);
   const { id } = url_parts.query;
   const user = req.user;
   if (!id) return next({ statusCode: 401, message: "no id given" });
   const room = await Room.findOne({ id });
   if (!room) return next({ statusCode: 404, message: "room not found" });
-  
-  Room.deleteOne({id:room.id},(err)=>{
+
+  Room.deleteOne({ id: room.id }, (err) => {
     if (err) return next(err);
-    return res.status(200).json({message:"room deleted succesfully"});
+    return res.status(200).json({ message: "room deleted succesfully" });
   });
-  
-})
+});
 
 router.get("/create", authenticate, async (req, res, next) => {
   const user = req.user;
@@ -81,6 +80,7 @@ router.post("/update", authenticate, async (req, res, next) => {
   });
 });
 
+
 router.get("/userRooms", authenticate, async (req, res, next) => {
   const user = req.user;
   try {
@@ -89,7 +89,7 @@ router.get("/userRooms", authenticate, async (req, res, next) => {
         $in: user.rooms,
       },
     });
-    user.rooms = rooms.map(e=>e._id);
+    user.rooms = rooms.map((e) => e._id);
     await user.save();
     return res.status(200).json(rooms);
   } catch (err) {
