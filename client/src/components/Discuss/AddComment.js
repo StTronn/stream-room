@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
+import authRequest from "../../utils/authRequest";
 
-const AddComment = () => {
+const AddComment = ({ roomId }) => {
+  const [text, setText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const createComment = async (e) => {
+    try {
+      setLoading(true);
+      await authRequest("/comment/create", { roomId, text });
+      setLoading(false);
+      setText("");
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="flex py-4 px-2 rounded bg-nt-gray">
@@ -10,6 +26,10 @@ const AddComment = () => {
           className="rounded-full h-12 w-12 "
         />
         <textarea
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
           className="bg-transparent mt-2 ml-2 md:ml-8 w-full text-white text-lg outline-none"
           placeholder="Add a Comment"
           rows="4"
@@ -17,12 +37,12 @@ const AddComment = () => {
       </div>
 
       <div className=" w-full grid justify-items-end my-2 inline-flex rounded shadow">
-        <a
-          href="/#"
-          className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-semibold rounded text-nt-red-main bg-white hover:bg-indigo-50"
+        <span
+          onClick={createComment}
+          className="cursor-pointer inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-semibold rounded text-nt-red-main bg-white hover:bg-indigo-50"
         >
-          Comment
-        </a>
+          {loading ? <ClipLoader color="#ffffff" size={25} /> : "Comment"}
+        </span>
       </div>
     </>
   );

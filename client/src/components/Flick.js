@@ -62,7 +62,7 @@ const Flick = ({ list }) => {
     <div className="px-8">
       {list && list.length !== 0 && (
         <FlickingConfig>
-          {list && list.map((e) => <Room roomObj={e} />)}
+          {list && list.map((e) => <Room roomObj={e} key={e.id} />)}
         </FlickingConfig>
       )}
 
@@ -120,8 +120,8 @@ const FlickingConfig = ({ children }) => {
 };
 
 const InfoCointaiers = ({ children }) => (
-  <p className=" text-gray-400 pt-8 text-sm text-semibold sm:mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
+  <div className=" text-gray-400 pt-8 text-sm text-semibold sm:mt-5  sm:max-w-xl sm:mx-auto md:mt-5 lg:mx-0">
     {children}
-  </p>
+  </div>
 );
 export default Flick;

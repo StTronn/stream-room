@@ -7,6 +7,7 @@ import errorHandler from "./middleware/errorHandler";
 import authenticate from "./middleware/auth";
 import auth from "./routes/auth";
 import room from "./routes/room";
+import comment from "./routes/comment";
 import passport from "passport";
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(passport.initialize());
 
 app.use("/auth", auth);
 app.use("/room", room);
+app.use("/comment", comment);
 
 connectDB();
 

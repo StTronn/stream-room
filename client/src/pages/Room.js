@@ -40,7 +40,7 @@ const Room = () => {
     <>
       <Banner obj={roomObj} />
       <Lobby obj={roomObj} />
-      <Discuss />
+      <Discuss roomId={roomObj.id} />
     </>
   );
 };

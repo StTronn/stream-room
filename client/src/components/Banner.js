@@ -162,9 +162,9 @@ const Description = ({ children }) => (
 );
 
 const InfoCointaiers = ({ children }) => (
-  <p className=" text-white text-sm text-semibold mt-5 sm:mx-auto md:mt-5 lg:mx-0">
+  <div className=" text-white text-sm text-semibold mt-5 sm:mx-auto md:mt-5 lg:mx-0">
     {children}
-  </p>
+  </div>
 );
 
 const prompt =

@@ -1,7 +1,7 @@
 import React from "react";
 import authRequest from "../utils/authRequest";
 import Modal from "../components/HomeModal";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const Clip = styled.div`
@@ -70,7 +70,7 @@ const HomeBanner = ({ modalIsOpen, setIsOpen }) => {
         </div>
       </div>
       <div className="hidden md:block">
-        <Clip/>
+        <Clip />
       </div>
       <Modal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
     </div>

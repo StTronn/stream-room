@@ -34,8 +34,8 @@ const Comment = ({ comment: { text, username, fullname, replies } }) => {
         </div>
       </div>
       <div className="px-20">
-        {replies.map((e) => (
-          <Reply reply={e} />
+        {replies.map((e, i) => (
+          <Reply reply={e} key={i} />
         ))}
       </div>
     </div>

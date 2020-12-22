@@ -13,8 +13,8 @@ const SearchList = ({ list }) => {
   return (
     <Cointainer className="md:px-16 sm:px-4">
       <div>
-        {list.map((e) => (
-          <SearchItem obj={e} />
+        {list.map((e, i) => (
+          <SearchItem obj={e} key={i} />
         ))}
       </div>
     </Cointainer>

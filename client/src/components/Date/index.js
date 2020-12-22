@@ -3,7 +3,7 @@ import "./react-datetime.css";
 import DateTime from "react-datetime";
 
 let inputProps = {
-  class: "form-control bg-transparent text-white outline-none w-48 ",
+  className: "form-control bg-transparent text-white outline-none w-48 ",
   placeholder: "Select Date",
 };
 

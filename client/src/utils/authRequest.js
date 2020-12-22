@@ -1,7 +1,6 @@
 import axios from "axios";
 import { URL } from "../utils/Routes";
 
-
 const authRequest = async (endpoint, data) => {
   try {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -21,7 +20,7 @@ const authRequest = async (endpoint, data) => {
       return res.data;
     }
   } catch (err) {
-    console.log(err);
+    console.log("inside authRequest catch block", err);
     if (
       err.response &&
       (err.response.status === 403 || err.response.status === 401)
