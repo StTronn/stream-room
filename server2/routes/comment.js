@@ -40,4 +40,20 @@ router.get("/get", authenticate, async (req, res, next) => {
   }
 });
 
+router.post("/createReply", authenticate, async (req, res, next) => {
+  const { fullname, username } = req.user;
+  const { commentId, text } = req.body;
+
+  if (!commentId)
+    return next({ message: "provide commentId", statusCode: 400 });
+  const comment = await UserComment.findOne({ _id: commentId });
+  if (!comment) return next({ message: "comment not found ", statusCode: 400 });
+  const reply = { fullname, username, text };
+  comment.replies.push(reply);
+  comment.save((err) => {
+    if (err) next(err);
+    return res.status(200).json(reply);
+  });
+});
+
 export default router;

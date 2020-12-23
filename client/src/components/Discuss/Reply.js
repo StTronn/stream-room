@@ -13,18 +13,16 @@ const Reply = ({ reply: { text, username, fullname } }) => {
           <div className="text-sm font-semibold text-white ">
             {fullname}
 
-            <span className="ml-2 text-sm font-light text-nt-red-accent">
-              {username}{" "}
+            <span className="ml-2 mt-1 text-xs font-light text-gray-400">
+              Dec 22, 2020
+              {}{" "}
             </span>
-          </div>
-          <div className="mt-1 text-xs font-light text-gray-200">
-            Dec 22, 2020
           </div>
         </div>
         <div>
           <ReplyText>{text}</ReplyText>
 
-          <p className="text-sm text-gray-400 text-light">
+          <p className="text-sm mt-2 text-gray-400 text-light">
             {" "}
             <span className="mr-8"> Like </span>{" "}
           </p>
