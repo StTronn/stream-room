@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 import authRequest from "../../utils/authRequest";
 
-const AddComment = ({ roomId }) => {
+const AddComment = ({ roomId, comments, setComments }) => {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const createComment = async (e) => {
     try {
       setLoading(true);
-      await authRequest("/comment/create", { roomId, text });
+      const newComment = await authRequest("/comment/create", { roomId, text });
+      const newComments = [...comments, newComment];
+      setComments(newComments);
       setLoading(false);
       setText("");
     } catch (err) {

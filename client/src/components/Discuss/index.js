@@ -30,11 +30,15 @@ const Discuss = ({ roomId }) => {
       <div className=" h-12   flex justify-between items-center border-b border-nt-red-main my-4 pb-2">
         <div className="text-xl font-bold text-white">Discussion</div>
       </div>
-      <AddComment roomId={roomId} />
+      <AddComment
+        roomId={roomId}
+        comments={comments}
+        setComments={setComments}
+      />
       {loading && <ClipLoader color="#ffffff" size={100} />}
 
       {comments.map((e, i) => (
-        <Comment comment={e} key={i} />
+        <Comment comment={e} key={e._id} />
       ))}
     </div>
   );

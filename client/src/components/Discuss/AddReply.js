@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 import authRequest from "../../utils/authRequest";
 
-const AddReply = ({ setShowAddReply, commentId }) => {
+const AddReply = ({
+  setShowAddReply,
+  commentId,
+  stateReplies,
+  setStateReplies,
+}) => {
   const [reply, setReply] = useState("");
   const [loading, setLoading] = useState(false);
   const AddReply = async () => {
     // commentId, user, text
     try {
       setLoading(true);
-      await authRequest("/comment/createReply", { commentId, text: reply });
+      const newReply = await authRequest("/comment/createReply", {
+        commentId,
+        text: reply,
+      });
+      const newReplies = [...stateReplies, newReply];
+      setStateReplies(newReplies);
       setLoading(false);
       setReply("");
       setShowAddReply(false);

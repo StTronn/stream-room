@@ -154,7 +154,7 @@ const TitleInput = (props) => (
 
 const Description = ({ children }) => (
   <p
-    style={{ minHeight: "150px" }}
+    style={{ minHeight: "150px", maxWidth: "720px" }}
     className="text-base text-gray-300 mt-5 sm:mx-auto  lg:mx-0"
   >
     {children}

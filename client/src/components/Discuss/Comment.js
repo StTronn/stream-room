@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import moment from "moment";
+import { shortFormatTime } from "../../utils/room";
 import Reply from "./Reply";
 import AddReply from "./AddReply";
 
-const Comment = ({ comment: { _id, text, username, fullname, replies } }) => {
+const Comment = ({
+  comment: { _id, text, date, username, fullname, replies },
+}) => {
+  const [stateReplies, setStateReplies] = useState(replies);
   const [showAddReply, setShowAddReply] = useState(false);
   const [showReply, setShowReply] = useState(false);
   return (
@@ -20,7 +23,7 @@ const Comment = ({ comment: { _id, text, username, fullname, replies } }) => {
               {fullname}
 
               <span className="ml-2 mt-1 text-xs font-light text-gray-400">
-                Dec 22, 2020
+                {shortFormatTime(date)}
                 {}{" "}
               </span>
             </div>
@@ -41,15 +44,20 @@ const Comment = ({ comment: { _id, text, username, fullname, replies } }) => {
               </span>
             </p>
             {showAddReply && (
-              <AddReply commentId={_id} setShowAddReply={setShowAddReply} />
+              <AddReply
+                stateReplies={stateReplies}
+                setStateReplies={setStateReplies}
+                commentId={_id}
+                setShowAddReply={setShowAddReply}
+              />
             )}
           </div>
         </div>
       </div>
       <div className="px-14 md:px-20">
-        {showReply && replies.map((e, i) => <Reply reply={e} key={i} />)}
+        {showReply && stateReplies.map((e, i) => <Reply reply={e} key={i} />)}
 
-        {replies && replies.length !== 0 && (
+        {stateReplies && stateReplies.length !== 0 && (
           <ShowReply setShowReply={setShowReply} showReply={showReply}>
             {!showReply ? "Show Replies" : "Hide Replies"}{" "}
           </ShowReply>
