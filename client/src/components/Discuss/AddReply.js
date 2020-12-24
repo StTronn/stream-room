@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 import authRequest from "../../utils/authRequest";
 
 const AddReply = ({
@@ -55,7 +56,7 @@ const AddReply = ({
             }}
             className="cursor-pointer inline-flex items-center justify-center px-4 py-2 border border-transparent text-base font-semibold rounded text-white bg-nt-gray hover:bg-nt-gray"
           >
-            Reply
+            {loading ? <ClipLoader color="#E50914" size={20} /> : "Reply"}
           </span>
         </div>
       </div>

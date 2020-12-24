@@ -43,7 +43,7 @@ const AddComment = ({ roomId, comments, setComments }) => {
           onClick={createComment}
           className="cursor-pointer inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-semibold rounded text-nt-red-main bg-white hover:bg-indigo-50"
         >
-          {loading ? <ClipLoader color="#ffffff" size={25} /> : "Comment"}
+          {loading ? <ClipLoader color="E50914" size={25} /> : "Comment"}
         </span>
       </div>
     </>
