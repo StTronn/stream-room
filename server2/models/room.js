@@ -18,6 +18,7 @@ const RoomSchema = new Schema({
     type: String,
     default: "",
   },
+  public:{type:Boolean,default:false}  
 });
 
 RoomSchema.pre("save", async function (next) {

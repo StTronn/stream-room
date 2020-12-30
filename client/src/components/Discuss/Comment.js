@@ -45,6 +45,7 @@ const Comment = ({
             </p>
             {showAddReply && (
               <AddReply
+                setShowReply={setShowReply}
                 stateReplies={stateReplies}
                 setStateReplies={setStateReplies}
                 commentId={_id}

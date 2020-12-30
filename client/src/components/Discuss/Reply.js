@@ -33,7 +33,7 @@ const Reply = ({ reply: { text, username, fullname } }) => {
 };
 
 const ReplyText = ({ children }) => (
-  <p className="text-sm md:text-base text-gray-300 mt-2 sm:max-w-xl sm:mx-auto md:mt-2 lg:mx-0">
+  <p className="text-xs md:text-sm text-gray-300 mt-2 sm:max-w-xl sm:mx-auto md:mt-2 lg:mx-0">
     {children}
   </p>
 );
