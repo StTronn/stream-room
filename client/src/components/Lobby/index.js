@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import InviteModal from "../../components/InviteModal";
 import authRequest from "../../utils/authRequest";
 import DeleteRoom from "./DeleteRoom";
+import SetRoomMode from "./SetRoomMode";
 import User from "./User";
 
-const Lobby = ({ obj }) => {
+const Lobby = ({ obj, isAdmin }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editLink, setEditLink] = useState(false);
   const [link, setLink] = useState("");
@@ -26,40 +27,12 @@ const Lobby = ({ obj }) => {
           <div>
             <div className="text-xl  font-bold text-white">Lobby</div>
           </div>
-          <div className="">
-            <div className="flex items-center justify-center w-full  shadow-md rounded-full">
-              <label
-                htmlFor="toogleA"
-                className="flex items-center cursor-pointer"
-              >
-                <div className="flex items-center">
-                  <input id="toogleA" type="checkbox" className="hidden" />
-                  <div className="toggle__line w-20 h-10 bg-white rounded-full shadow-inner"></div>
-                  <div className="toggle__dot bg-nt-red-main absolute w-10 h-10 bg-white rounded-full shadow flex items-center justify-center">
-                    <svg
-                      className="text-white w-6 h-6 "
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="{2}"
-                        d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </label>
-            </div>
-          </div>
+          {isAdmin && <SetRoomMode />}
         </div>
         <div className="px-6">
           {obj &&
             obj.users &&
-            obj.users.map((e, i) => <User user={e} key={i} />)}
+            obj.users.map((e, i) => <User user={e} key={i} admin={i == 0} />)}
           <div className="flex bg-gray-200 justify-center items-center h-16 p-4 my-6  rounded  shadow-inner">
             <div className="flex items-center border border-gray-400 p-2 border-dashed rounded cursor-pointer">
               <div>
@@ -97,28 +70,33 @@ const Lobby = ({ obj }) => {
             </button>
           )}
 
-          {editLink && (
-            <span className="flex items-center border-b border-nt-red-main py-2">
-              <input
-                value={link}
-                onChange={(e) => setLink(e.target.value)}
-                onKeyDown={submit}
-                className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 text-base leading-tight focus:outline-none"
-                type="text"
-                placeholder="Enter room id"
-                aria-label="Full name"
-              />
-            </span>
+          {isAdmin && (
+            <>
+              {" "}
+              {editLink && (
+                <span className="flex items-center border-b border-nt-red-main py-2">
+                  <input
+                    value={link}
+                    onChange={(e) => setLink(e.target.value)}
+                    onKeyDown={submit}
+                    className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 text-base leading-tight focus:outline-none"
+                    type="text"
+                    placeholder="Enter room id"
+                    aria-label="Full name"
+                  />
+                </span>
+              )}
+              <p
+                onClick={() => {
+                  setEditLink(true);
+                }}
+                className="font-sm text-nt-red-main text-center underline pt-2"
+              >
+                change link
+              </p>
+              <DeleteRoom id={obj.id} />
+            </>
           )}
-          <p
-            onClick={() => {
-              setEditLink(true);
-            }}
-            className="font-sm text-nt-red-main text-center underline pt-2"
-          >
-            change link
-          </p>
-          <DeleteRoom id={obj.id} />
         </div>
       </div>
       <InviteModal

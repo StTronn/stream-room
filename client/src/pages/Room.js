@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import queryString from "query-string";
+import { User } from "../context/user";
 import authRequest from "../utils/authRequest";
 import { useLocation } from "react-router-dom";
 import Banner from "../components/Banner";
@@ -33,13 +34,15 @@ const Room = () => {
     fetchRoom();
   }, []);
 
+  const user = JSON.parse(localStorage.getItem("user"));
   if (notFound) return <NotFound />;
   if (loading) return <Loading />;
   if (!roomObj) return <Loading />;
+  const isAdmin = user.username === roomObj.users[0].username;
   return (
     <>
       <Banner obj={roomObj} />
-      <Lobby obj={roomObj} />
+      <Lobby obj={roomObj} isAdmin={isAdmin} />
       <Discuss roomId={roomObj.id} />
     </>
   );

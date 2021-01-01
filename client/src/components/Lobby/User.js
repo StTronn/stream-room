@@ -1,6 +1,7 @@
 import React from "react";
+import DeleteUser from "./DeleteUser";
 
-const User = ({ user }) => {
+const User = ({ user, admin }) => {
   const { username, fullname } = user;
   return (
     <div className="flex justify-between items-center text-white h-16 p-4 my-6 bg-nt-gray rounded border border-nt-gray shadow-md">
@@ -17,24 +18,7 @@ const User = ({ user }) => {
           </div>
         </div>
       </div>
-      <div>
-        <button className="bg-nt-red-accent hover:bg-red-500 p-2 rounded-full shadow-md flex justify-center items-center">
-          <svg
-            className="text-white toggle__lock w-6 h-6"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="{2}"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </div>
+      <div>{!admin && <DeleteUser />}</div>
     </div>
   );
 };
