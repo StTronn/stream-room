@@ -1,7 +1,7 @@
 import React from "react";
 import DeleteUser from "./DeleteUser";
 
-const User = ({ user, admin }) => {
+const User = ({ user, admin, isAdmin }) => {
   const { username, fullname } = user;
   return (
     <div className="flex justify-between items-center text-white h-16 p-4 my-6 bg-nt-gray rounded border border-nt-gray shadow-md">
@@ -18,7 +18,7 @@ const User = ({ user, admin }) => {
           </div>
         </div>
       </div>
-      <div>{!admin && <DeleteUser />}</div>
+      <div>{!admin && isAdmin && <DeleteUser />}</div>
     </div>
   );
 };

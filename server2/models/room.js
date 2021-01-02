@@ -18,16 +18,21 @@ const RoomSchema = new Schema({
     type: String,
     default: "",
   },
-  public:{type:Boolean,default:false}  
+  public: { type: Boolean, default: false },
 });
 
 RoomSchema.pre("save", async function (next) {
   const user = this.users[this.users.length - 1];
-  for (let room of user.rooms) {
-    if (room.id === this.id) next();
+  if (user) {
+    let found = false;
+    for (let room of user.rooms) {
+      if (room.toString() === this._id.toString()) found = true;
+    }
+    if (!found) {
+      user.rooms.push(this._id);
+      await user.save();
+    }
   }
-  user.rooms.push(this._id);
-  await user.save();
   next();
 });
 

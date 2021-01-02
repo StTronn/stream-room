@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import DeleteModal from "./DeleteModal";
+import LeaveModal from "./LeaveModal";
 
-const DeleteRoom = ({ id }) => {
+const LeaveRoom = ({ id }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,9 +27,9 @@ const DeleteRoom = ({ id }) => {
           />
         </svg>
       </button>
-      <DeleteModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} id={id} />
+      <LeaveModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} id={id} />
     </>
   );
 };
 
-export default DeleteRoom;
+export default LeaveRoom;

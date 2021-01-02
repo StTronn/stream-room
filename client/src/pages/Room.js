@@ -39,10 +39,12 @@ const Room = () => {
   if (loading) return <Loading />;
   if (!roomObj) return <Loading />;
   const isAdmin = user.username === roomObj.users[0].username;
+  const belongsToRoom =
+    isAdmin || roomObj.users.some((e) => e.username === user.username);
   return (
     <>
       <Banner obj={roomObj} />
-      <Lobby obj={roomObj} isAdmin={isAdmin} />
+      <Lobby obj={roomObj} isAdmin={isAdmin} belongsToRoom={belongsToRoom} />
       <Discuss roomId={roomObj.id} />
     </>
   );

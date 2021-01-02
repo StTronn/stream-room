@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import InviteModal from "../../components/InviteModal";
 import authRequest from "../../utils/authRequest";
 import DeleteRoom from "./DeleteRoom";
+import LeaveRoom from "./LeaveRoom";
 import SetRoomMode from "./SetRoomMode";
 import User from "./User";
 
-const Lobby = ({ obj, isAdmin }) => {
+const Lobby = ({ obj, isAdmin, belongsToRoom }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editLink, setEditLink] = useState(false);
   const [link, setLink] = useState("");
@@ -32,7 +33,9 @@ const Lobby = ({ obj, isAdmin }) => {
         <div className="px-6">
           {obj &&
             obj.users &&
-            obj.users.map((e, i) => <User user={e} key={i} admin={i == 0} />)}
+            obj.users.map((e, i) => (
+              <User user={e} isAdmin={isAdmin} key={i} admin={i == 0} />
+            ))}
           <div className="flex bg-gray-200 justify-center items-center h-16 p-4 my-6  rounded  shadow-inner">
             <div className="flex items-center border border-gray-400 p-2 border-dashed rounded cursor-pointer">
               <div>
@@ -97,6 +100,7 @@ const Lobby = ({ obj, isAdmin }) => {
               <DeleteRoom id={obj.id} />
             </>
           )}
+          {!isAdmin && belongsToRoom && <LeaveRoom id={obj.id} />}
         </div>
       </div>
       <InviteModal
